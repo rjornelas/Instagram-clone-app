@@ -6,12 +6,16 @@
         <item name="android:layout_marginEnd">26dp</item>
     </style>
 
-    <style name="Theme.Instagram.FormEditText" parent="Theme.Instagram.FormContainer">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">16dp</item>
+    <style name="Theme.Instagram.FormEditText" parent="Theme.Instagram.FormEditTextInput">
         <item name="android:layout_marginBottom">24dp</item>
         <item name="android:background">@drawable/edt_text_background</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+    </style>
+    
+    <style name="Theme.Instagram.FormEditTextInput" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     
     <style name="Theme.Instagram.Button" parent="Widget.MaterialComponents.Button">

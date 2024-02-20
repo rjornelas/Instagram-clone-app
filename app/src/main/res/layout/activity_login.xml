@@ -57,6 +57,7 @@
             <Button
                 android:id="@+id/btn_login"
                 style="@style/Theme.Instagram.Button"
+                android:enabled="false"
                 android:text="@string/btn_login" />
 
             <FrameLayout

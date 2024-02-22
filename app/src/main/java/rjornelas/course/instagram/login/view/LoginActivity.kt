@@ -15,22 +15,22 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val edtTextEmail = findViewById<TextInputEditText>(R.id.edt_login_email)
-        val edtTextPassword = findViewById<TextInputEditText>(R.id.edt_login_password)
+        val edtTextEmail = findViewById<TextInputEditText>(R.id.edt_register_email)
+        val edtTextPassword = findViewById<TextInputEditText>(R.id.edt_register_password)
 
         edtTextEmail.addTextChangedListener(watcher)
         edtTextPassword.addTextChangedListener(watcher)
 
-        val buttonEnter = findViewById<LoadingButton>(R.id.btn_login)
+        val buttonEnter = findViewById<LoadingButton>(R.id.btn_register_next)
         buttonEnter.setOnClickListener {
 
             buttonEnter.showProgress(true)
 
             if (edtTextEmail.text.isNullOrEmpty()) {
-                findViewById<TextInputLayout>(R.id.login_edit_email_input).error = "Invalid email"
+                findViewById<TextInputLayout>(R.id.register_edit_email_input).error = "Invalid email"
             }
             if (edtTextPassword.text.isNullOrEmpty()) {
-                findViewById<TextInputLayout>(R.id.login_edit_password_input).error =
+                findViewById<TextInputLayout>(R.id.register_edit_password_input).error =
                     "Invalid password"
             }
 
@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            findViewById<LoadingButton>(R.id.btn_login).isEnabled = p0.toString().isNotEmpty()
+            findViewById<LoadingButton>(R.id.btn_register_next).isEnabled = p0.toString().isNotEmpty()
         }
 
         override fun afterTextChanged(p0: Editable?) {

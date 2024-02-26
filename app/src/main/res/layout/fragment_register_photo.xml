@@ -18,8 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="70dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="70dp">
 
             <ImageView
                 android:layout_width="150dp"
@@ -30,17 +30,17 @@
                 android:src="@drawable/photo_icon" />
 
             <TextView
-                android:text="@string/photo_register_title"
                 style="@style/Theme.Instagram.TextViewBase.Form"
-                android:textSize="24sp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/photo_register_title"
                 android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"/>
+                android:textSize="24sp" />
 
             <TextView
-                android:text="@string/photo_register_subtitle"
                 style="@style/Theme.Instagram.TextViewBase.Form"
-                android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:text="@string/photo_register_subtitle"
+                android:textColor="@color/black" />
 
             <rjornelas.course.instagram.login.view.LoadingButton
                 android:id="@+id/btn_register_next"
@@ -49,13 +49,13 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:text="@string/add_photo" />
-            
+
             <Button
                 android:id="@+id/btn_register_skip"
-                android:text="@string/jump"
                 style="@style/Theme.Instagram.Link"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"/>
+                android:layout_marginEnd="20dp"
+                android:text="@string/jump" />
 
         </LinearLayout>
 

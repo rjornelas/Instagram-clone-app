@@ -1,14 +1,14 @@
 package rjornelas.course.instagram.login.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import rjornelas.course.instagram.R
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import rjornelas.course.instagram.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,8 @@ class LoginActivity : AppCompatActivity() {
             buttonEnter.showProgress(true)
 
             if (edtTextEmail.text.isNullOrEmpty()) {
-                findViewById<TextInputLayout>(R.id.register_edit_email_input).error = "Invalid email"
+                findViewById<TextInputLayout>(R.id.register_edit_email_input).error =
+                    "Invalid email"
             }
             if (edtTextPassword.text.isNullOrEmpty()) {
                 findViewById<TextInputLayout>(R.id.register_edit_password_input).error =
@@ -45,7 +46,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            findViewById<LoadingButton>(R.id.btn_register_next).isEnabled = p0.toString().isNotEmpty()
+            findViewById<LoadingButton>(R.id.btn_register_next).isEnabled =
+                p0.toString().isNotEmpty()
         }
 
         override fun afterTextChanged(p0: Editable?) {

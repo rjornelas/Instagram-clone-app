@@ -1,9 +1,9 @@
 package rjornelas.course.instagram.main.view
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsetsController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import rjornelas.course.instagram.R
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_insta_camera)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title=""
+        supportActionBar?.title = ""
 
 
     }

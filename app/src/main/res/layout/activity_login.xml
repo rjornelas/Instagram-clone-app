@@ -36,11 +36,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_register_email"
                     style="@style/Theme.Instagram.FormEditText"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:autofillHints="@null"
                     android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -51,17 +51,17 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_register_password"
                     style="@style/Theme.Instagram.FormEditText"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:autofillHints="@null"
                     android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"/>
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <rjornelas.course.instagram.login.view.LoadingButton
                 android:id="@+id/btn_register_next"
                 style="@style/Theme.Instagram.Button"
-                app:text="@string/enter"/>
+                app:text="@string/enter" />
 
             <FrameLayout
                 style="@style/Theme.Instagram.FormContainer"

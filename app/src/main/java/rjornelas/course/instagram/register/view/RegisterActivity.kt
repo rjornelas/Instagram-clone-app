@@ -1,7 +1,7 @@
 package rjornelas.course.instagram.register.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import rjornelas.course.instagram.R
 
 class RegisterActivity : AppCompatActivity() {

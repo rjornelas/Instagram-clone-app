@@ -7,14 +7,12 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
 
-class FragmentHome : Fragment(){
+class FragmentHome : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +39,7 @@ class FragmentHome : Fragment(){
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
+    private class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -59,8 +57,8 @@ class FragmentHome : Fragment(){
             return 30
         }
 
-        private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-            fun bind(image: Int){
+        private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            fun bind(image: Int) {
                 itemView.findViewById<ImageView>(R.id.home_img_post).setImageResource(image)
             }
         }

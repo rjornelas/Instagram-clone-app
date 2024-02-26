@@ -18,16 +18,21 @@ class LoadingButton : FrameLayout {
 
     constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         setup(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr){
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         setup(context, attrs)
     }
 
     private fun setup(context: Context, attrs: AttributeSet?) {
-        val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater =
+            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.button_loading, this)
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton, 0, 0)
@@ -46,12 +51,12 @@ class LoadingButton : FrameLayout {
         button.isEnabled = enabled
     }
 
-    public fun showProgress(enabled: Boolean){
-        if(enabled){
+    public fun showProgress(enabled: Boolean) {
+        if (enabled) {
             button.text = ""
             button.isEnabled = false
             progress.visibility = View.VISIBLE
-        }else{
+        } else {
             button.text = text
             button.isEnabled = true
             progress.visibility = View.GONE

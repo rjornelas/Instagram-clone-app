@@ -50,26 +50,26 @@
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <LinearLayout
+        android:id="@+id/home_container_user_comment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/home_container_user_comment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_img_post"
+        android:layout_marginHorizontal="16dp"
         android:padding="8dp"
-        android:layout_marginHorizontal="16dp">
-        
-        <ImageView
-            style="@style/Theme.Instagram.Icon"
-            android:src="@drawable/ic_insta_heart"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_img_post">
 
         <ImageView
             style="@style/Theme.Instagram.Icon"
-            android:src="@drawable/ic_insta_comment"/>
+            android:src="@drawable/ic_insta_heart" />
 
         <ImageView
             style="@style/Theme.Instagram.Icon"
-            android:src="@drawable/ic_insta_send"/>
+            android:src="@drawable/ic_insta_comment" />
+
+        <ImageView
+            style="@style/Theme.Instagram.Icon"
+            android:src="@drawable/ic_insta_send" />
     </LinearLayout>
 
     <TextView

@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import rjornelas.course.instagram.R
 
-class CustomerDialog(context: Context) : Dialog(context){
+class CustomerDialog(context: Context) : Dialog(context) {
 
     private lateinit var dialogLinearLayout: LinearLayout
     private lateinit var txtTitle: TextView
@@ -27,15 +27,15 @@ class CustomerDialog(context: Context) : Dialog(context){
         this.titleId = titleId
     }
 
-    fun addButton(vararg texts: Int, listener: View.OnClickListener){
-        txtButtons = Array(texts.size){
+    fun addButton(vararg texts: Int, listener: View.OnClickListener) {
+        txtButtons = Array(texts.size) {
             TextView(context)
         }
 
-        texts.forEachIndexed{index, txtId ->
+        texts.forEachIndexed { index, txtId ->
             txtButtons[index].id = txtId
             txtButtons[index].setText(txtId)
-            txtButtons[index].setOnClickListener{
+            txtButtons[index].setOnClickListener {
                 listener.onClick(it)
                 dismiss()
             }
@@ -48,8 +48,11 @@ class CustomerDialog(context: Context) : Dialog(context){
             txtTitle.setText(it)
         }
 
-        for (textView in txtButtons){
-            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        for (textView in txtButtons) {
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
             layoutParams.setMargins(30, 50, 30, 50)
             dialogLinearLayout.addView(textView, layoutParams)
         }

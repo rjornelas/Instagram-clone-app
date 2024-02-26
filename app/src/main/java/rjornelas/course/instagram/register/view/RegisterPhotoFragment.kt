@@ -24,11 +24,12 @@ class RegisterPhotoFragment : Fragment() {
         val customerDialog = CustomerDialog(requireContext())
 
         customerDialog.setTitle(R.string.photo_register_title)
-        customerDialog.addButton(R.string.photo, R.string.gallery){
-            when(it.id){
+        customerDialog.addButton(R.string.photo, R.string.gallery) {
+            when (it.id) {
                 R.string.photo -> {
                     //open camera
                 }
+
                 R.string.gallery -> {
                     //open gallery
                 }

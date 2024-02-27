@@ -11,22 +11,26 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.databinding.FragmentProfileBinding
 
-class FragmentProfile : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+class FragmentProfile : Fragment(R.layout.fragment_profile) {
+
+    private var binding: FragmentProfileBinding? = null
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val rv = view.findViewById<RecyclerView>(R.id.profile_rv)
-        rv.layoutManager = GridLayoutManager(requireContext(), 3)
-        rv.adapter = PostAdapter()
+        binding = FragmentProfileBinding.bind(view)
+
+        binding?.let {
+            it.profileRv.layoutManager = GridLayoutManager(requireContext(), 3)
+            it.profileRv.adapter = PostAdapter()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,14 +47,14 @@ class FragmentProfile : Fragment() {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): PostAdapter.PostViewHolder {
+        ): PostViewHolder {
             return PostViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_profile_grid, parent, false)
             )
         }
 
-        override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
             holder.bind(R.drawable.ic_insta_add)
         }
 
@@ -60,7 +64,7 @@ class FragmentProfile : Fragment() {
 
         private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(image: Int) {
-                itemView.findViewById<ImageView>(R.id.item_profile_img_grid).setImageResource(image)
+                itemView.findViewById<ImageView>(R.id.item_profile_img_grid).setImageResource(image) //TODO
             }
         }
     }

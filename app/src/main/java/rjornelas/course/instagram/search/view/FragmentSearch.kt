@@ -11,22 +11,26 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.databinding.FragmentSearchBinding
 
-class FragmentSearch : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+class FragmentSearch : Fragment(R.layout.fragment_search) {
+
+    private var binding: FragmentSearchBinding? = null
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val rv = view.findViewById<RecyclerView>(R.id.search_rv)
-        rv.layoutManager = LinearLayoutManager(requireContext())
-        rv.adapter = PostAdapter()
+        binding = FragmentSearchBinding.bind(view)
+
+        binding?.let {
+            it.searchRv.layoutManager = LinearLayoutManager(requireContext())
+            it.searchRv.adapter = PostAdapter()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +63,7 @@ class FragmentSearch : Fragment() {
 
         private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(image: Int) {
-                itemView.findViewById<ImageView>(R.id.search_img_user).setImageResource(image)
+                itemView.findViewById<ImageView>(R.id.search_img_user).setImageResource(image) //TODO
             }
         }
     }

@@ -11,22 +11,25 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.databinding.FragmentHomeBinding
 
-class FragmentHome : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+class FragmentHome : Fragment(R.layout.fragment_home) {
+
+    private var binding: FragmentHomeBinding? = null
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val rv = view.findViewById<RecyclerView>(R.id.home_rv)
-        rv.layoutManager = LinearLayoutManager(requireContext())
-        rv.adapter = PostAdapter()
+        binding = FragmentHomeBinding.bind(view)
+
+        binding?.let {
+            it.homeRv.layoutManager = LinearLayoutManager(requireContext())
+            it.homeRv.adapter = PostAdapter()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

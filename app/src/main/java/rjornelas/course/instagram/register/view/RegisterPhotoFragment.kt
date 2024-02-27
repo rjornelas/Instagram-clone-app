@@ -7,19 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.view.CustomerDialog
+import rjornelas.course.instagram.databinding.FragmentRegisterWelcomeBinding
 
-class RegisterPhotoFragment : Fragment() {
+class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_register_photo, container, false)
+    private var binding: FragmentRegisterWelcomeBinding? = null
+
+    override fun onDestroy() {
+        binding = null
+        super.onDestroy()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentRegisterWelcomeBinding.bind(view)
 
         val customerDialog = CustomerDialog(requireContext())
 

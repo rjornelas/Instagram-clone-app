@@ -6,7 +6,6 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import rjornelas.course.instagram.R
 import rjornelas.course.instagram.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -20,23 +19,25 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.edtRegisterEmail.addTextChangedListener(watcher)
-        binding.edtRegisterPassword.addTextChangedListener(watcher)
+        with(binding) {
+            edtRegisterEmail.addTextChangedListener(watcher)
+            edtRegisterPassword.addTextChangedListener(watcher)
 
-        binding.btnRegisterNext.setOnClickListener {
+            btnRegisterNext.setOnClickListener {
 
-            binding.btnRegisterNext.showProgress(true)
+                btnRegisterNext.showProgress(true)
 
-            if (binding.edtRegisterEmail.text.isNullOrEmpty()) {
-                binding.registerEditEmailInput.error = "Invalid email"
+                if (edtRegisterEmail.text.isNullOrEmpty()) {
+                    registerEditEmailInput.error = "Invalid email"
+                }
+                if (edtRegisterPassword.text.isNullOrEmpty()) {
+                    registerEditPasswordInput.error = "Invalid password"
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    btnRegisterNext.showProgress(false)
+                }, 2000)
             }
-            if (binding.edtRegisterPassword.text.isNullOrEmpty()) {
-                binding.registerEditPasswordInput.error = "Invalid password"
-            }
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.btnRegisterNext.showProgress(false)
-            }, 2000)
         }
     }
 

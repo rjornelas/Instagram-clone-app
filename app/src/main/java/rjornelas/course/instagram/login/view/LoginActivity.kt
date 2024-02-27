@@ -6,37 +6,36 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        val edtTextEmail = findViewById<TextInputEditText>(R.id.edt_register_email)
-        val edtTextPassword = findViewById<TextInputEditText>(R.id.edt_register_password)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
-        edtTextEmail.addTextChangedListener(watcher)
-        edtTextPassword.addTextChangedListener(watcher)
 
-        val buttonEnter = findViewById<LoadingButton>(R.id.btn_register_next)
-        buttonEnter.setOnClickListener {
+        setContentView(binding.root)
 
-            buttonEnter.showProgress(true)
+        binding.edtRegisterEmail.addTextChangedListener(watcher)
+        binding.edtRegisterPassword.addTextChangedListener(watcher)
 
-            if (edtTextEmail.text.isNullOrEmpty()) {
-                findViewById<TextInputLayout>(R.id.register_edit_email_input).error =
-                    "Invalid email"
+        binding.btnRegisterNext.setOnClickListener {
+
+            binding.btnRegisterNext.showProgress(true)
+
+            if (binding.edtRegisterEmail.text.isNullOrEmpty()) {
+                binding.registerEditEmailInput.error = "Invalid email"
             }
-            if (edtTextPassword.text.isNullOrEmpty()) {
-                findViewById<TextInputLayout>(R.id.register_edit_password_input).error =
-                    "Invalid password"
+            if (binding.edtRegisterPassword.text.isNullOrEmpty()) {
+                binding.registerEditPasswordInput.error = "Invalid password"
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
-                buttonEnter.showProgress(false)
+                binding.btnRegisterNext.showProgress(false)
             }, 2000)
         }
     }
@@ -46,8 +45,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            findViewById<LoadingButton>(R.id.btn_register_next).isEnabled =
-                p0.toString().isNotEmpty()
+            binding.btnRegisterNext.isEnabled = p0.toString().isNotEmpty()
         }
 
         override fun afterTextChanged(p0: Editable?) {

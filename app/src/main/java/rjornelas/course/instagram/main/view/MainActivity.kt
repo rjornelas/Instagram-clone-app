@@ -7,11 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
@@ -21,8 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         window.statusBarColor = ContextCompat.getColor(this, R.color.gray)
 
-        val toolbar = findViewById<Toolbar>(R.id.main_toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.mainToolbar)
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_insta_camera)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

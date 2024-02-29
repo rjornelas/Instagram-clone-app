@@ -1,12 +1,17 @@
 package rjornelas.course.instagram.login.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import rjornelas.course.instagram.common.view.util.TxtWatcher
 import rjornelas.course.instagram.databinding.ActivityLoginBinding
 import rjornelas.course.instagram.login.Login
+import rjornelas.course.instagram.login.data.FakeDataSource
+import rjornelas.course.instagram.login.data.LoginRepository
 import rjornelas.course.instagram.login.presentation.LoginPresenter
+import rjornelas.course.instagram.main.view.MainActivity
 
 class LoginActivity : AppCompatActivity(), Login.View {
 
@@ -21,7 +26,8 @@ class LoginActivity : AppCompatActivity(), Login.View {
 
         setContentView(binding.root)
 
-        presenter = LoginPresenter(this)
+        val repository = LoginRepository(FakeDataSource())
+        presenter = LoginPresenter(this, repository)
 
         with(binding) {
             edtRegisterEmail.addTextChangedListener(watcher)
@@ -49,7 +55,7 @@ class LoginActivity : AppCompatActivity(), Login.View {
     }
 
     override fun showProgress(enabled: Boolean) {
-        binding.btnRegisterNext.showProgress(true)
+        binding.btnRegisterNext.showProgress(enabled)
     }
 
     override fun displayEmailFailure(emailError: Int?) {
@@ -61,8 +67,12 @@ class LoginActivity : AppCompatActivity(), Login.View {
     }
 
     override fun onUserAuthenticated() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
-    override fun onUserUnauthorized() {
+    override fun onUserUnauthorized(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

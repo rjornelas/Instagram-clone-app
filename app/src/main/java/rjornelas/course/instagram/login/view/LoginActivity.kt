@@ -1,16 +1,18 @@
 package rjornelas.course.instagram.login.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import rjornelas.course.instagram.common.view.util.TxtWatcher
 import rjornelas.course.instagram.databinding.ActivityLoginBinding
+import rjornelas.course.instagram.login.Login
+import rjornelas.course.instagram.login.presentation.LoginPresenter
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(), Login.View {
 
     private lateinit var binding: ActivityLoginBinding
+
+    override lateinit var presenter: Login.Presenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -19,37 +21,48 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        presenter = LoginPresenter(this)
+
         with(binding) {
             edtRegisterEmail.addTextChangedListener(watcher)
             edtRegisterPassword.addTextChangedListener(watcher)
 
+            edtRegisterEmail.addTextChangedListener(TxtWatcher{
+                displayEmailFailure(null)
+            })
+            edtRegisterPassword.addTextChangedListener(TxtWatcher{
+                displayPassFailure(null)
+            })
+
             btnRegisterNext.setOnClickListener {
-
-                btnRegisterNext.showProgress(true)
-
-                if (edtRegisterEmail.text.isNullOrEmpty()) {
-                    registerEditEmailInput.error = "Invalid email"
-                }
-                if (edtRegisterPassword.text.isNullOrEmpty()) {
-                    registerEditPasswordInput.error = "Invalid password"
-                }
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    btnRegisterNext.showProgress(false)
-                }, 2000)
+                presenter.login(
+                    edtRegisterEmail.text.toString(),
+                    edtRegisterPassword.text.toString()
+                )
             }
         }
     }
 
-    private val watcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
+    private val watcher = TxtWatcher {
+        binding.btnRegisterNext.isEnabled = binding.edtRegisterEmail.text.toString()
+            .isNotEmpty() && binding.edtRegisterPassword.text.toString().isNotEmpty()
+    }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            binding.btnRegisterNext.isEnabled = p0.toString().isNotEmpty()
-        }
+    override fun showProgress(enabled: Boolean) {
+        binding.btnRegisterNext.showProgress(true)
+    }
 
-        override fun afterTextChanged(p0: Editable?) {
-        }
+    override fun displayEmailFailure(emailError: Int?) {
+        binding.registerEditEmailInput.error = emailError?.let { getString(it) }
+    }
+
+    override fun displayPassFailure(passwordError: Int?) {
+        binding.registerEditPasswordInput.error = passwordError?.let { getString(it) }
+    }
+
+    override fun onUserAuthenticated() {
+    }
+
+    override fun onUserUnauthorized() {
     }
 }

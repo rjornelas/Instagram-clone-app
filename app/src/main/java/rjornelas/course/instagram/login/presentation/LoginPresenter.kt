@@ -26,10 +26,10 @@ class LoginPresenter(
             view?.displayPassFailure(null)
         }
 
-        if(isEmailValid && isPasswordValid){
+        if (isEmailValid && isPasswordValid) {
             view?.showProgress(true)
 
-            repository.login(email, password, object : LoginCallBack{
+            repository.login(email, password, object : LoginCallBack {
                 override fun onSuccess() {
                     view?.onUserAuthenticated()
                 }

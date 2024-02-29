@@ -2,10 +2,9 @@ package rjornelas.course.instagram.login.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import rjornelas.course.instagram.common.view.util.TxtWatcher
+import rjornelas.course.instagram.common.util.TxtWatcher
 import rjornelas.course.instagram.databinding.ActivityLoginBinding
 import rjornelas.course.instagram.login.Login
 import rjornelas.course.instagram.login.data.FakeDataSource
@@ -33,10 +32,10 @@ class LoginActivity : AppCompatActivity(), Login.View {
             edtRegisterEmail.addTextChangedListener(watcher)
             edtRegisterPassword.addTextChangedListener(watcher)
 
-            edtRegisterEmail.addTextChangedListener(TxtWatcher{
+            edtRegisterEmail.addTextChangedListener(TxtWatcher {
                 displayEmailFailure(null)
             })
-            edtRegisterPassword.addTextChangedListener(TxtWatcher{
+            edtRegisterPassword.addTextChangedListener(TxtWatcher {
                 displayPassFailure(null)
             })
 

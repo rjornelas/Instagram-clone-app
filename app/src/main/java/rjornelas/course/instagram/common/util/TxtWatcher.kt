@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.common.view.util
+package rjornelas.course.instagram.common.util
 
 import android.text.Editable
 import android.text.TextWatcher

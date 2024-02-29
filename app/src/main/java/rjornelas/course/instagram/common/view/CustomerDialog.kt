@@ -2,12 +2,10 @@ package rjornelas.course.instagram.common.view
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Binder
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import rjornelas.course.instagram.R
 import rjornelas.course.instagram.databinding.DialogCustomBinding
 
 class CustomerDialog(context: Context) : Dialog(context) {

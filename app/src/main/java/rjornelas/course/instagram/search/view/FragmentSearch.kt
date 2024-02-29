@@ -63,7 +63,8 @@ class FragmentSearch : Fragment(R.layout.fragment_search) {
 
         private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(image: Int) {
-                itemView.findViewById<ImageView>(R.id.search_img_user).setImageResource(image) //TODO
+                itemView.findViewById<ImageView>(R.id.search_img_user)
+                    .setImageResource(image) //TODO
             }
         }
     }

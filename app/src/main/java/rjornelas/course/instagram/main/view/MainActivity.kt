@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.databinding.ActivityMainBinding

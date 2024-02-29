@@ -1,7 +1,7 @@
 package rjornelas.course.instagram.login
 
-import rjornelas.course.instagram.common.view.base.BasePresenter
-import rjornelas.course.instagram.common.view.base.BaseView
+import rjornelas.course.instagram.common.base.BaseView
+import rjornelas.course.instagram.common.base.BasePresenter
 
 interface Login {
 

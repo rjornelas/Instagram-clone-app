@@ -10,6 +10,7 @@ import rjornelas.course.instagram.databinding.ActivityLoginBinding
 import rjornelas.course.instagram.login.Login
 import rjornelas.course.instagram.login.presentation.LoginPresenter
 import rjornelas.course.instagram.main.view.MainActivity
+import rjornelas.course.instagram.register.view.RegisterActivity
 
 class LoginActivity : AppCompatActivity(), Login.View {
 
@@ -43,7 +44,15 @@ class LoginActivity : AppCompatActivity(), Login.View {
                     edtRegisterPassword.text.toString()
                 )
             }
+
+            registerTxtLogin.setOnClickListener{
+                goToRegisterScreen()
+            }
         }
+    }
+
+    private fun goToRegisterScreen() {
+        startActivity(Intent(this, RegisterActivity::class.java))
     }
 
     private val watcher = TxtWatcher {

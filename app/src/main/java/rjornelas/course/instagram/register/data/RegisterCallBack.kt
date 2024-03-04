@@ -1,8 +1,6 @@
 package rjornelas.course.instagram.register.data
 
-import rjornelas.course.instagram.common.model.UserAuth
-
-interface RegisterEmailCallBack {
+interface RegisterCallBack {
 
     fun onSuccess()
 

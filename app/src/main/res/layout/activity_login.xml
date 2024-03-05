@@ -58,7 +58,7 @@
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <rjornelas.course.instagram.login.view.LoadingButton
+            <rjornelas.course.instagram.common.view.LoadingButton
                 android:id="@+id/btn_register_next"
                 style="@style/Theme.Instagram.Button"
                 app:text="@string/enter" />

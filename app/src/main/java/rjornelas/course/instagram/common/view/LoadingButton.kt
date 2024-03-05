@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.login.view
+package rjornelas.course.instagram.common.view
 
 import android.content.Context
 import android.util.AttributeSet

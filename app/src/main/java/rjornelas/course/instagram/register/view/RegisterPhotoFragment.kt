@@ -5,11 +5,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.view.CustomerDialog
+import rjornelas.course.instagram.databinding.FragmentRegisterPhotoBinding
 import rjornelas.course.instagram.databinding.FragmentRegisterWelcomeBinding
 
 class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
 
-    private var binding: FragmentRegisterWelcomeBinding? = null
+    private var binding: FragmentRegisterPhotoBinding? = null
 
     override fun onDestroy() {
         binding = null
@@ -19,7 +20,7 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentRegisterWelcomeBinding.bind(view)
+        binding = FragmentRegisterPhotoBinding.bind(view)
 
         val customerDialog = CustomerDialog(requireContext())
 

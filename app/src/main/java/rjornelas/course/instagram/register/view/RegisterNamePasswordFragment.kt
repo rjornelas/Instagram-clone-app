@@ -1,5 +1,6 @@
 package rjornelas.course.instagram.register.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,6 +19,8 @@ class RegisterNamePasswordFragment : Fragment(R.layout.fragment_register_name_pa
     private var binding: FragmentRegisterNamePasswordBinding? = null
 
     override lateinit var presenter: RegisterNameAndPassword.Presenter
+
+    private var fragmentAttachListener: FragmentAttachListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,7 +73,7 @@ class RegisterNamePasswordFragment : Fragment(R.layout.fragment_register_name_pa
     }
 
     override fun onCreateSuccess(name: String) {
-        //TODO
+        fragmentAttachListener?.goToWelcomeScreen(name)
     }
 
     override fun onCreateFailure(message: String) {
@@ -88,6 +91,13 @@ class RegisterNamePasswordFragment : Fragment(R.layout.fragment_register_name_pa
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is FragmentAttachListener){
+            fragmentAttachListener = context
+        }
     }
 
     private val watcher = TxtWatcher {

@@ -22,11 +22,12 @@
             android:paddingVertical="70dp">
 
             <TextView
+                android:id="@+id/txt_register_welcome"
                 style="@style/Theme.Instagram.TextViewBase.Form"
                 android:text="@string/welcome_to_instagram" />
 
             <rjornelas.course.instagram.login.view.LoadingButton
-                android:id="@+id/btn_register_name_pass_next"
+                android:id="@+id/btn_register_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

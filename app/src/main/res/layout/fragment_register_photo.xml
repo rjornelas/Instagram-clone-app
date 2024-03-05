@@ -81,6 +81,7 @@
         android:text="@string/already_has_account"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

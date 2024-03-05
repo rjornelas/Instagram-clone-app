@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.common.hideKeyBoard
 import rjornelas.course.instagram.common.view.CropperImageFragment
 import rjornelas.course.instagram.common.view.CropperImageFragment.Companion.KEY_URI
 import rjornelas.course.instagram.databinding.ActivityRegisterBinding
@@ -140,5 +141,6 @@ class RegisterActivity : AppCompatActivity(), FragmentAttachListener {
                 commit()
             }
         }
+        hideKeyBoard()
     }
 }

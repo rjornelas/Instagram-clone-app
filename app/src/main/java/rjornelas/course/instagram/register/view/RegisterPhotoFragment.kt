@@ -66,7 +66,7 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
         customerDialog.addButton(R.string.photo, R.string.gallery) {
             when (it.id) {
                 R.string.photo -> {
-                    //open camera
+                    fragmentAttachListener?.goToCameraScreen()
                 }
 
                 R.string.gallery -> {

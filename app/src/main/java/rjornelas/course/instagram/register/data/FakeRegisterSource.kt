@@ -1,8 +1,11 @@
 package rjornelas.course.instagram.register.data
 
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.provider.ContactsContract.Data
 import rjornelas.course.instagram.common.model.Database
+import rjornelas.course.instagram.common.model.Photo
 import rjornelas.course.instagram.common.model.UserAuth
 import java.util.UUID
 
@@ -41,6 +44,26 @@ class FakeRegisterSource : RegisterSource {
 
                 if(created){
                     Database.sessionAuth = newUser
+                    callback.onSuccess()
+                }else{
+                    callback.onFailure("Internal server error")
+                }
+            }
+            callback.onComplete()
+        }, 2000)
+    }
+
+    override fun updateUser(photoUri: Uri, callback: RegisterCallBack) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val userAuth = Database.sessionAuth
+
+            if (userAuth == null) {
+                callback.onFailure("User not found")
+            }else{
+                val newPhoto = Photo(userAuth.uuid, photoUri)
+                val created = Database.photos.add(newPhoto)
+
+                if(created){
                     callback.onSuccess()
                 }else{
                     callback.onFailure("Internal server error")

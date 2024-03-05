@@ -7,24 +7,29 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.view.CropperImageFragment
 import rjornelas.course.instagram.common.view.CustomerDialog
 import rjornelas.course.instagram.databinding.FragmentRegisterPhotoBinding
 import rjornelas.course.instagram.databinding.FragmentRegisterWelcomeBinding
+import rjornelas.course.instagram.register.RegisterPhoto
+import rjornelas.course.instagram.register.presentation.RegisterPhotoPresenter
 
-class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
+class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), RegisterPhoto.View {
 
     private var binding: FragmentRegisterPhotoBinding? = null
     private var fragmentAttachListener: FragmentAttachListener? = null
+    override lateinit var presenter: RegisterPhoto.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setFragmentResultListener("cropKey"){
-                requestKey, bundle -> val uri = bundle.getParcelable<Uri>(CropperImageFragment.KEY_URI)
+                _, bundle -> val uri = bundle.getParcelable<Uri>(CropperImageFragment.KEY_URI)
             onCropImageResult(uri)
         }
     }
@@ -38,6 +43,8 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
                 MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
             }
             binding?.imgProfile?.setImageBitmap(bitmap)
+
+            presenter.updateUser(uri)
         }
     }
 
@@ -45,6 +52,9 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentRegisterPhotoBinding.bind(view)
+
+        val repository = DependencyInjector.registerEmailRepository()
+        presenter = RegisterPhotoPresenter(this, repository)
 
         binding?.let { fragmentRegisterPhotoBinding ->
             with(fragmentRegisterPhotoBinding){
@@ -86,6 +96,19 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo) {
 
     override fun onDestroy() {
         binding = null
+        presenter.onDestroy()
         super.onDestroy()
+    }
+
+    override fun showProgress(enabled: Boolean) {
+        binding?.btnRegisterNext?.showProgress(enabled)
+    }
+
+    override fun onUpdateFailure(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onUpdateSuccess() {
+        fragmentAttachListener?.goToMainScreen()
     }
 }

@@ -12,6 +12,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.hideKeyBoard
+import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.common.view.CropperImageFragment
 import rjornelas.course.instagram.common.view.CropperImageFragment.Companion.KEY_URI
 import rjornelas.course.instagram.databinding.ActivityRegisterBinding
@@ -129,18 +130,7 @@ class RegisterActivity : AppCompatActivity(), FragmentAttachListener {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if (supportFragmentManager.findFragmentById(R.id.register_fragment) == null) {
-            supportFragmentManager.beginTransaction().apply {
-                add(R.id.register_fragment, fragment)
-                commit()
-            }
-        } else {
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.register_fragment, fragment)
-                addToBackStack(null)
-                commit()
-            }
-        }
+        replaceFragment(R.id.register_fragment, fragment)
         hideKeyBoard()
     }
 }

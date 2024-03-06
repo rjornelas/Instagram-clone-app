@@ -4,10 +4,17 @@ import rjornelas.course.instagram.login.data.FakeDataSource
 import rjornelas.course.instagram.login.data.LoginRepository
 import rjornelas.course.instagram.register.data.FakeRegisterSource
 import rjornelas.course.instagram.register.data.RegisterRepository
+import rjornelas.course.instagram.splash.Splash
+import rjornelas.course.instagram.splash.data.FakeLocalSplashDataSource
+import rjornelas.course.instagram.splash.data.SplashRepository
 
 object DependencyInjector {
     fun loginRepository() : LoginRepository {
         return LoginRepository(FakeDataSource())
+    }
+
+    fun splashRepository() : SplashRepository {
+        return SplashRepository(FakeLocalSplashDataSource())
     }
 
     fun registerEmailRepository() : RegisterRepository{

@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.search.view
+package rjornelas.course.instagram.profile.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
-import rjornelas.course.instagram.databinding.FragmentSearchBinding
+import rjornelas.course.instagram.databinding.FragmentProfileBinding
 
-class FragmentSearch : Fragment(R.layout.fragment_search) {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private var binding: FragmentSearchBinding? = null
+    private var binding: FragmentProfileBinding? = null
 
     override fun onDestroy() {
         binding = null
@@ -25,11 +25,11 @@ class FragmentSearch : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentSearchBinding.bind(view)
+        binding = FragmentProfileBinding.bind(view)
 
         binding?.let {
-            it.searchRv.layoutManager = LinearLayoutManager(requireContext())
-            it.searchRv.adapter = PostAdapter()
+            it.profileRv.layoutManager = GridLayoutManager(requireContext(), 3)
+            it.profileRv.adapter = PostAdapter()
         }
     }
 
@@ -47,13 +47,14 @@ class FragmentSearch : Fragment(R.layout.fragment_search) {
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
-        ): PostAdapter.PostViewHolder {
+        ): PostViewHolder {
             return PostViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_user_list, parent, false)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_profile_grid, parent, false)
             )
         }
 
-        override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
             holder.bind(R.drawable.ic_insta_add)
         }
 
@@ -63,7 +64,7 @@ class FragmentSearch : Fragment(R.layout.fragment_search) {
 
         private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             fun bind(image: Int) {
-                itemView.findViewById<ImageView>(R.id.search_img_user)
+                itemView.findViewById<ImageView>(R.id.item_profile_img_grid)
                     .setImageResource(image) //TODO
             }
         }

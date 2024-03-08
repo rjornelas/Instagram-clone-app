@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.profile.view
+package rjornelas.course.instagram.profile
 
 import rjornelas.course.instagram.common.base.BasePresenter
 import rjornelas.course.instagram.common.base.BaseView

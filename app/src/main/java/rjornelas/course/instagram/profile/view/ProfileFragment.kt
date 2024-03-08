@@ -5,9 +5,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.base.BaseFragment
+import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.model.Post
 import rjornelas.course.instagram.common.model.UserAuth
 import rjornelas.course.instagram.databinding.FragmentProfileBinding
+import rjornelas.course.instagram.profile.Profile
+import rjornelas.course.instagram.profile.presentation.ProfilePresenter
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     R.layout.fragment_profile,
@@ -17,6 +20,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     private val adapter = PostAdapter()
     override fun showProgress(enabled: Boolean) {
         binding?.profileProgress?.visibility = if(enabled) View.VISIBLE else View.GONE
+    }
+
+    override fun setupPresenter() {
+        val repository = DependencyInjector.profileRepository()
+        presenter = ProfilePresenter(this, repository)
     }
 
     override fun setupViews() {
@@ -52,10 +60,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     }
 
     override lateinit var presenter: Profile.Presenter
-
-    override fun setupPresenter() {
-//        presenter = ProfilePresenter(this, repository)
-    }
 
     override fun getMenu(): Int {
         return R.menu.menu_profile

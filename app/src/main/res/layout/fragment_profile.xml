@@ -156,6 +156,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_profile_empty"
         android:text="@string/empty_list"
+        android:visibility="gone"
         android:layout_gravity="center"/>
 </FrameLayout>
 

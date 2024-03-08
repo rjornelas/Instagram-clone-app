@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.databinding.FragmentHomeBinding
 
-class FragmentHome : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var binding: FragmentHomeBinding? = null
     override fun onDestroy() {

@@ -14,7 +14,7 @@ import rjornelas.course.instagram.R
 import rjornelas.course.instagram.camera.view.CameraFragment
 import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.databinding.ActivityMainBinding
-import rjornelas.course.instagram.home.view.FragmentHome
+import rjornelas.course.instagram.home.view.HomeFragment
 import rjornelas.course.instagram.profile.view.ProfileFragment
 import rjornelas.course.instagram.search.view.SearchFragment
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        homeFragment = FragmentHome()
+        homeFragment = HomeFragment()
         searchFragment = SearchFragment()
         cameraFragment = CameraFragment()
         profileFragment = ProfileFragment()

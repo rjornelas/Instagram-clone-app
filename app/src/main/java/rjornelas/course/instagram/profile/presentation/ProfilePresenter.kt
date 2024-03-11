@@ -22,7 +22,7 @@ class ProfilePresenter(
     override fun fetchUserProfile() {
         view?.showProgress(true)
         val userUUID = Database.sessionAuth?.uuid ?: throw RuntimeException("user not found")
-        repository.fetchUserProfile(userUUID, object : RequestCallback<UserAuth>{
+        repository.fetchUserProfile(object : RequestCallback<UserAuth>{
             override fun onSuccess(data: UserAuth) {
                 view?.displayUserProfile(data)
             }

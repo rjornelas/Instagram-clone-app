@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.home.home
+package rjornelas.course.instagram.home.data
 
 import rjornelas.course.instagram.common.base.RequestCallback
 import rjornelas.course.instagram.common.model.Post
@@ -10,7 +10,7 @@ interface HomeDataSource {
         throw UnsupportedOperationException()
     }
 
-    fun putFeed(response: List<Post>): UserAuth {
+    fun putFeed(response: List<Post>) {
         throw UnsupportedOperationException()
     }
 }

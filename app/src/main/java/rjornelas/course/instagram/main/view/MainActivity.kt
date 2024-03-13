@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import rjornelas.course.instagram.R
-import rjornelas.course.instagram.camera.view.CameraFragment
+import rjornelas.course.instagram.add.view.AddFragment
 import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.databinding.ActivityMainBinding
 import rjornelas.course.instagram.home.view.HomeFragment
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private lateinit var homeFragment: Fragment
     private lateinit var searchFragment: Fragment
-    private lateinit var cameraFragment: Fragment
+    private lateinit var addFragment: Fragment
     private lateinit var profileFragment: Fragment
     private var currentFragment: Fragment? = null
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         homeFragment = HomeFragment()
         searchFragment = SearchFragment()
-        cameraFragment = CameraFragment()
+        addFragment = AddFragment()
         profileFragment = ProfileFragment()
 
 //        currentFragment = homeFragment
@@ -77,8 +77,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
 
             R.id.menu_bottom_add -> {
-                if(currentFragment == cameraFragment) return false
-                currentFragment = cameraFragment
+                if(currentFragment == addFragment) return false
+                currentFragment = addFragment
             }
 
             R.id.menu_bottom_profile -> {

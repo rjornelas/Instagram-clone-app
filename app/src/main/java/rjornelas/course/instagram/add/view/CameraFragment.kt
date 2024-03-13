@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.camera.view
+package rjornelas.course.instagram.add.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +13,6 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_camera, container, false)
     }
 }

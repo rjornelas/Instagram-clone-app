@@ -46,4 +46,5 @@
     <string name="invalid_password">A senha deve ter no minimo 8 caracteres</string>
     <string name="empty_list">Nenhum registro encontrado</string>
     <string name="permission_camera_denied">Habilite a permissão do uso de camera!</string>
+    <string name="add_description">Adicione uma descrição</string>
 </resources>

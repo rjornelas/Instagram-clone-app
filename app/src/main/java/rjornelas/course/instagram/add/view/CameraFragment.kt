@@ -14,7 +14,9 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.util.Files
@@ -50,6 +52,7 @@ class CameraFragment : Fragment() {
         imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(requireContext()), object : ImageCapture.OnImageSavedCallback{
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                 val savedUri = Uri.fromFile(photoFile)
+                setFragmentResult("takePhotoKey", bundleOf("uri" to savedUri))
             }
 
             override fun onError(exception: ImageCaptureException) {
@@ -59,7 +62,7 @@ class CameraFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setFragmentResultListener("cameraKey") { requestKey, bundle ->
+        setFragmentResultListener("cameraKey") { _, bundle ->
             val shouldStart = bundle.getBoolean("startCamera")
 
             if (shouldStart) {

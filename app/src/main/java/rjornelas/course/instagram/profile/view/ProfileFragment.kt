@@ -1,8 +1,11 @@
 package rjornelas.course.instagram.profile.view
 
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.base.BaseFragment
 import rjornelas.course.instagram.common.base.DependencyInjector
@@ -15,7 +18,7 @@ import rjornelas.course.instagram.profile.presentation.ProfilePresenter
 class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     R.layout.fragment_profile,
     FragmentProfileBinding::bind
-), Profile.View {
+), Profile.View, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private val adapter = PostAdapter()
     override fun showProgress(enabled: Boolean) {
@@ -30,6 +33,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
     override fun setupViews() {
         binding?.profileRv?.layoutManager = GridLayoutManager(requireContext(), 3)
         binding?.profileRv?.adapter = adapter
+        binding?.profileNavTabs?.setOnNavigationItemSelectedListener(this)
 
         presenter.fetchUserProfile()
     }
@@ -64,5 +68,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
 
     override fun getMenu(): Int {
         return R.menu.menu_profile
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_profile_grid -> {
+                binding?.profileRv?.layoutManager = GridLayoutManager(requireContext(), 3)
+            }
+            R.id.menu_profile_list -> {
+                binding?.profileRv?.layoutManager = LinearLayoutManager(requireContext())
+            }
+        }
+        return true
     }
 }

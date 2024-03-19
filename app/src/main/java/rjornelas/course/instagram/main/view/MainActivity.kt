@@ -11,14 +11,15 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import rjornelas.course.instagram.R
-import rjornelas.course.instagram.post.view.AddFragment
 import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.databinding.ActivityMainBinding
 import rjornelas.course.instagram.home.view.HomeFragment
+import rjornelas.course.instagram.post.view.AddFragment
 import rjornelas.course.instagram.profile.view.ProfileFragment
 import rjornelas.course.instagram.search.view.SearchFragment
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, AddFragment.AddListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
+    AddFragment.AddListener, SearchFragment.SearchListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -66,24 +67,25 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         when (item.itemId) {
             R.id.menu_bottom_home -> {
-                if(currentFragment == homeFragment) return false
+                if (currentFragment == homeFragment) return false
                 currentFragment = homeFragment
 
             }
 
             R.id.menu_bottom_search -> {
-                if(currentFragment == searchFragment) return false
+                if (currentFragment == searchFragment) return false
                 currentFragment = searchFragment
+                scrollToolbarEnabled = false
             }
 
             R.id.menu_bottom_add -> {
-                if(currentFragment == addFragment) return false
+                if (currentFragment == addFragment) return false
                 currentFragment = addFragment
                 scrollToolbarEnabled = false
             }
 
             R.id.menu_bottom_profile -> {
-                if(currentFragment == profileFragment) return false
+                if (currentFragment == profileFragment) return false
                 currentFragment = profileFragment
                 scrollToolbarEnabled = true
             }
@@ -114,10 +116,23 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onPostCreated() {
         homeFragment.presenter.clear()
-        if(supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null){
+        if (supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null) {
             profileFragment.presenter.clear()
         }
         binding.mainBottomNav.selectedItemId = R.id.menu_bottom_home
+    }
+
+    override fun goToProfile(uuid: String) {
+        val fragment = ProfileFragment().apply {
+            arguments = Bundle().apply {
+                putString(ProfileFragment.KEY_USER_ID, uuid)
+            }
+        }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.main_fragment, fragment, fragment.javaClass.simpleName + "detail")
+            addToBackStack(null)
+            commit()
+        }
     }
 
 }

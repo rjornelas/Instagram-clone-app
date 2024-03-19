@@ -1,71 +1,83 @@
 package rjornelas.course.instagram.search.view
 
-import android.os.Bundle
+import android.app.SearchManager
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import rjornelas.course.instagram.R
+import rjornelas.course.instagram.common.base.BaseFragment
+import rjornelas.course.instagram.common.base.DependencyInjector
+import rjornelas.course.instagram.common.model.UserAuth
 import rjornelas.course.instagram.databinding.FragmentSearchBinding
+import rjornelas.course.instagram.search.Search
+import rjornelas.course.instagram.search.presentation.SearchPresenter
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : BaseFragment<FragmentSearchBinding, Search.Presenter>(
+    R.layout.fragment_search,
+    FragmentSearchBinding::bind
+), Search.View {
 
-    private var binding: FragmentSearchBinding? = null
+    override lateinit var presenter: Search.Presenter
+    private val adapter = SearchAdapter()
 
-    override fun onDestroy() {
-        binding = null
-        super.onDestroy()
+    override fun setupViews() {
+        binding?.searchRv?.layoutManager = LinearLayoutManager(requireContext())
+         binding?.searchRv?.adapter = adapter
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentSearchBinding.bind(view)
-
-        binding?.let {
-            it.searchRv.layoutManager = LinearLayoutManager(requireContext())
-            it.searchRv.adapter = PostAdapter()
-        }
+    override fun setupPresenter() {
+        val repository = DependencyInjector.searchRepository()
+        presenter = SearchPresenter(this, repository)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    override fun getMenu(): Int {
+        return R.menu.menu_search
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_profile, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
 
-    private class PostAdapter : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): PostAdapter.PostViewHolder {
-            return PostViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_user_list, parent, false)
-            )
-        }
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = (menu.findItem(R.id.menu_search).actionView  as SearchView)
+        searchView.apply {
+            setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(newText: String?): Boolean {
+                    return false
+                }
 
-        override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
-            holder.bind(R.drawable.ic_insta_add)
-        }
-
-        override fun getItemCount(): Int {
-            return 30
-        }
-
-        private class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            fun bind(image: Int) {
-                itemView.findViewById<ImageView>(R.id.search_img_user)
-                    .setImageResource(image) //TODO
-            }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if(newText?.isNotEmpty() == true){
+                        presenter.fetchUsers(newText)
+                        return true
+                    }
+                    return false
+                }
+            })
         }
     }
+
+    override fun showProgress(enabled: Boolean) {
+        binding?.searchProgress?.visibility = if(enabled) View.VISIBLE else View.GONE
+    }
+
+    override fun displayFullUsers(users: List<UserAuth>) {
+        binding?.searchTxtEmpty?.visibility = View.GONE
+        binding?.searchRv?.visibility = View.VISIBLE
+        adapter.items = users
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun displayEmptyUsers() {
+        binding?.searchTxtEmpty?.visibility = View.VISIBLE
+        binding?.searchRv?.visibility = View.GONE
+    }
+
 }

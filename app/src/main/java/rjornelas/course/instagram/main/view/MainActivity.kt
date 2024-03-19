@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import rjornelas.course.instagram.R
-import rjornelas.course.instagram.add.view.AddFragment
+import rjornelas.course.instagram.post.view.AddFragment
 import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.databinding.ActivityMainBinding
 import rjornelas.course.instagram.home.view.HomeFragment

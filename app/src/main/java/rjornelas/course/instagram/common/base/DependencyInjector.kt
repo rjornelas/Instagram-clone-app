@@ -1,5 +1,6 @@
 package rjornelas.course.instagram.common.base
 
+import android.content.Context
 import rjornelas.course.instagram.add.data.AddFakeRemoteDataSource
 import rjornelas.course.instagram.add.data.AddLocalDataSource
 import rjornelas.course.instagram.add.data.AddRepository
@@ -8,6 +9,8 @@ import rjornelas.course.instagram.home.data.HomeDataSourceFactory
 import rjornelas.course.instagram.home.data.HomeRepository
 import rjornelas.course.instagram.login.data.FakeDataSource
 import rjornelas.course.instagram.login.data.LoginRepository
+import rjornelas.course.instagram.post.data.PostLocalDataSource
+import rjornelas.course.instagram.post.data.PostRepository
 import rjornelas.course.instagram.profile.data.PostsListMemoryCache
 import rjornelas.course.instagram.profile.data.ProfileDataSourceFactory
 import rjornelas.course.instagram.profile.data.ProfileMemoryCache
@@ -44,5 +47,9 @@ object DependencyInjector {
 
     fun addRepository(): AddRepository {
         return AddRepository(AddFakeRemoteDataSource(), AddLocalDataSource())
+    }
+
+    fun postRepository(context: Context): PostRepository {
+        return PostRepository(PostLocalDataSource(context))
     }
 }

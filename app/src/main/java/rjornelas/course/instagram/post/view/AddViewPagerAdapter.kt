@@ -1,10 +1,9 @@
-package rjornelas.course.instagram.add.view
+package rjornelas.course.instagram.post.view
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import rjornelas.course.instagram.R
-import java.lang.IllegalStateException
 
 class AddViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 

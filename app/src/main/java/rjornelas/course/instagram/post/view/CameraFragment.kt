@@ -1,4 +1,4 @@
-package rjornelas.course.instagram.add.view
+package rjornelas.course.instagram.post.view
 
 import android.net.Uri
 import android.os.Bundle

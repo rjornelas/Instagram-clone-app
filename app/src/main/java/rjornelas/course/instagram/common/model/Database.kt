@@ -1,11 +1,12 @@
 package rjornelas.course.instagram.common.model
 
+import android.net.Uri
+import java.io.File
 import java.util.UUID
 
 object Database {
 
-    val usersAuth = hashSetOf<UserAuth>()
-    val photos = hashSetOf<Photo>()
+    val usersAuth = mutableListOf<UserAuth>()
     val posts = hashMapOf<String, MutableSet<Post>>()
     val feeds = hashMapOf<String, MutableSet<Post>>()
     val followers = hashMapOf<String, Set<String>>()
@@ -17,13 +18,17 @@ object Database {
             UUID.randomUUID().toString(),
             "userA",
             "userA@gmail.com",
-            "12345678"
+            "12345678",
+            Uri.fromFile(
+                File("/storage/emulated/0/Pictures/.thumbnails/1000000036.jpg")
+            )
         )
         val userB = UserAuth(
             UUID.randomUUID().toString(),
             "userA",
             "userB@gmail.com",
-            "87654321"
+            "87654321",
+            Uri.fromFile(File("/storage/emulated/0/Pictures/.thumbnails/1000000036.jpg"))
         )
 
         usersAuth.add(userA)

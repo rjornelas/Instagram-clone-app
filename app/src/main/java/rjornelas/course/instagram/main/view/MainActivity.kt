@@ -113,6 +113,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onPostCreated() {
         homeFragment.presenter.clear()
+        if(supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null){
+            profileFragment.presenter.clear()
+        }
         binding.mainBottomNav.selectedItemId = R.id.menu_bottom_home
     }
 

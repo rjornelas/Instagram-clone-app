@@ -3,9 +3,7 @@ package rjornelas.course.instagram.register.data
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import android.provider.ContactsContract.Data
 import rjornelas.course.instagram.common.model.Database
-import rjornelas.course.instagram.common.model.Photo
 import rjornelas.course.instagram.common.model.UserAuth
 import java.util.UUID
 
@@ -37,17 +35,17 @@ class FakeRegisterSource : RegisterSource {
 
             if (userAuth != null) {
                 callback.onFailure("User already registered")
-            }else{
-                val newUser = UserAuth(UUID.randomUUID().toString(), name, email, password)
+            } else {
+                val newUser = UserAuth(UUID.randomUUID().toString(), name, email, password, null)
 
                 val created = Database.usersAuth.add(newUser)
 
-                if(created){
+                if (created) {
                     Database.sessionAuth = newUser
                     Database.followers[newUser.uuid] = hashSetOf()
                     Database.feeds[newUser.uuid] = hashSetOf()
                     callback.onSuccess()
-                }else{
+                } else {
                     callback.onFailure("Internal server error")
                 }
             }
@@ -61,15 +59,11 @@ class FakeRegisterSource : RegisterSource {
 
             if (userAuth == null) {
                 callback.onFailure("User not found")
-            }else{
-                val newPhoto = Photo(userAuth.uuid, photoUri)
-                val created = Database.photos.add(newPhoto)
-
-                if(created){
-                    callback.onSuccess()
-                }else{
-                    callback.onFailure("Internal server error")
-                }
+            } else {
+                val index = Database.usersAuth.indexOf(Database.sessionAuth)
+                Database.usersAuth[index] = Database.sessionAuth!!.copy(photoUri = photoUri)
+                Database.sessionAuth = Database.usersAuth[index]
+                callback.onSuccess()
             }
             callback.onComplete()
         }, 2000)

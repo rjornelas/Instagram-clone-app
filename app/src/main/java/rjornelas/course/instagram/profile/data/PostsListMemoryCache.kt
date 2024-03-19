@@ -1,8 +1,9 @@
 package rjornelas.course.instagram.profile.data
 
+import rjornelas.course.instagram.common.base.Cache
 import rjornelas.course.instagram.common.model.Post
 
-object PostsListMemoryCache : ProfileCache<List<Post>> {
+object PostsListMemoryCache : Cache<List<Post>> {
 
     private var posts: List<Post>? = null
 
@@ -14,7 +15,7 @@ object PostsListMemoryCache : ProfileCache<List<Post>> {
         return posts
     }
 
-    override fun put(data: List<Post>) {
+    override fun put(data: List<Post>?) {
         posts = data
     }
 }

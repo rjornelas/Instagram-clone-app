@@ -10,7 +10,8 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment<T, P : BasePresenter>(
     @LayoutRes layoutId: Int,
-    val bind: (View) -> T) :
+    val bind: (View) -> T
+) :
     Fragment(layoutId) {
 
     protected var binding: T? = null
@@ -33,6 +34,7 @@ abstract class BaseFragment<T, P : BasePresenter>(
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         getMenu()?.let {
+            menu.clear()
             inflater.inflate(it, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)

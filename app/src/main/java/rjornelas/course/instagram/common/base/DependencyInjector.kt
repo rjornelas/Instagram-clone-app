@@ -16,6 +16,7 @@ import rjornelas.course.instagram.profile.data.ProfileDataSourceFactory
 import rjornelas.course.instagram.profile.data.ProfileMemoryCache
 import rjornelas.course.instagram.profile.data.ProfileRepository
 import rjornelas.course.instagram.register.data.FakeRegisterSource
+import rjornelas.course.instagram.register.data.FireRegisterSource
 import rjornelas.course.instagram.register.data.RegisterRepository
 import rjornelas.course.instagram.search.data.SearchFakeRemoteDataSource
 import rjornelas.course.instagram.search.data.SearchRepository
@@ -32,7 +33,7 @@ object DependencyInjector {
     }
 
     fun registerEmailRepository(): RegisterRepository {
-        return RegisterRepository(FakeRegisterSource())
+        return RegisterRepository(FireRegisterSource())
     }
 
     fun searchRepository(): SearchRepository {

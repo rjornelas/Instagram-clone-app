@@ -41,7 +41,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         presenter.fetchUserProfile(uuid)
     }
 
-    override fun displayUserProfile(userAuth: UserAuth) {
+    override fun displayUserProfile(user: Pair<UserAuth, Boolean?>) {
+
+        val (userAuth, following) = user
+
         binding?.profileTxtPostsCount?.text = userAuth.postCount.toString()
         binding?.profileTxtFollowersCount?.text = userAuth.followersCount.toString()
         binding?.profileTxtFollowingCount?.text = userAuth.followingCount.toString()
@@ -49,6 +52,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         binding?.profileTxtBio?.text = "TODO"
         binding?.profileImgIcon?.setImageURI(userAuth.photoUri)
         presenter.fetchUserPosts(uuid)
+
+        binding?.profileBtnEditProfile?.text = when(following){
+            null -> getString(R.string.edit_profile)
+            true -> getString(R.string.unfollow)
+            false -> getString(R.string.follow)
+        }
     }
 
     override fun displayRequestFailure(message: String) {

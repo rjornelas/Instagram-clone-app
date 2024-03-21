@@ -1,5 +1,6 @@
 package rjornelas.course.instagram.home.data
 
+import com.google.firebase.auth.FirebaseAuth
 import rjornelas.course.instagram.common.base.Cache
 import rjornelas.course.instagram.common.base.RequestCallback
 import rjornelas.course.instagram.common.model.Database
@@ -20,8 +21,8 @@ class HomeLocalDataSource(
         callback.onComplete()
     }
 
-    override fun fetchSession(): UserAuth {
-        return Database.sessionAuth ?: throw RuntimeException("Usuário não logado")
+    override fun fetchSession(): String {
+        return FirebaseAuth.getInstance().uid ?: throw RuntimeException("Usuário não logado")
     }
 
     override fun putFeed(response: List<Post>?) {

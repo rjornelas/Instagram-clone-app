@@ -5,11 +5,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.base.BaseFragment
 import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.model.Post
+import rjornelas.course.instagram.common.model.User
 import rjornelas.course.instagram.common.model.UserAuth
 import rjornelas.course.instagram.databinding.FragmentProfileBinding
 import rjornelas.course.instagram.profile.Profile
@@ -53,16 +55,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
         presenter.fetchUserProfile(uuid)
     }
 
-    override fun displayUserProfile(user: Pair<UserAuth, Boolean?>) {
+    override fun displayUserProfile(user: Pair<User, Boolean?>) {
 
         val (userAuth, following) = user
 
         binding?.profileTxtPostsCount?.text = userAuth.postCount.toString()
-        binding?.profileTxtFollowersCount?.text = userAuth.followersCount.toString()
-        binding?.profileTxtFollowingCount?.text = userAuth.followingCount.toString()
+        binding?.profileTxtFollowersCount?.text = userAuth.followers.toString()
+        binding?.profileTxtFollowingCount?.text = userAuth.following.toString()
         binding?.profileTxtUsername?.text = userAuth.name
         binding?.profileTxtBio?.text = "TODO"
-        binding?.profileImgIcon?.setImageURI(userAuth.photoUri)
+
+        binding?.let {
+            Glide.with(requireContext()).load(userAuth.photoUrl).into(it.profileImgIcon)
+        }
+
         presenter.fetchUserPosts(uuid)
 
         binding?.profileBtnEditProfile?.text = when(following){

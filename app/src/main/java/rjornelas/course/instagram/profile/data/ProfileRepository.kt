@@ -2,18 +2,19 @@ package rjornelas.course.instagram.profile.data
 
 import rjornelas.course.instagram.common.base.RequestCallback
 import rjornelas.course.instagram.common.model.Post
+import rjornelas.course.instagram.common.model.User
 import rjornelas.course.instagram.common.model.UserAuth
 
 class ProfileRepository(
     private val dataSourceFactory: ProfileDataSourceFactory
 ) {
-    fun fetchUserProfile(uuid: String?, callback: RequestCallback<Pair<UserAuth, Boolean?>>) {
+    fun fetchUserProfile(uuid: String?, callback: RequestCallback<Pair<User, Boolean?>>) {
         val localDataSource = dataSourceFactory.createLocalDataSource()
-        val userId = uuid ?: localDataSource.fetchSession().uuid
+        val userId = uuid ?: localDataSource.fetchSession()
         val dataSource = dataSourceFactory.createFromUser(uuid)
 
-        dataSource.fetchUserProfile(userId, object : RequestCallback<Pair<UserAuth, Boolean?>> {
-            override fun onSuccess(data: Pair<UserAuth, Boolean?>) {
+        dataSource.fetchUserProfile(userId, object : RequestCallback<Pair<User, Boolean?>> {
+            override fun onSuccess(data: Pair<User, Boolean?>) {
                 if (uuid == null) {
                     localDataSource.putUser(data)
                 }
@@ -33,7 +34,7 @@ class ProfileRepository(
 
     fun fetchUserPosts(uuid: String?, callback: RequestCallback<List<Post>>) {
         val localDataSource = dataSourceFactory.createLocalDataSource()
-        val userId = uuid ?: localDataSource.fetchSession().uuid
+        val userId = uuid ?: localDataSource.fetchSession()
         val dataSource = dataSourceFactory.createFromPosts(uuid)
 
         dataSource.fetchUserPosts(userId, object : RequestCallback<List<Post>> {
@@ -57,7 +58,7 @@ class ProfileRepository(
 
     fun followUser(uuid: String?, follow: Boolean, callback: RequestCallback<Boolean>) {
         val localDataSource = dataSourceFactory.createLocalDataSource()
-        val userId = uuid ?: localDataSource.fetchSession().uuid
+        val userId = uuid ?: localDataSource.fetchSession()
         val dataSource = dataSourceFactory.createRemoteDataSource()
 
         dataSource.followUser(userId, follow, object : RequestCallback<Boolean> {

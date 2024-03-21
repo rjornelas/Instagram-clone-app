@@ -6,7 +6,7 @@ import rjornelas.course.instagram.common.model.UserAuth
 
 interface HomeDataSource {
     fun fetchFeed(userUUID: String, callback: RequestCallback<List<Post>>)
-    fun fetchSession(): UserAuth {
+    fun fetchSession(): String {
         throw UnsupportedOperationException()
     }
 

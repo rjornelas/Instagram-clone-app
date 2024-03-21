@@ -8,6 +8,7 @@ import rjornelas.course.instagram.home.data.FeedMemoryCache
 import rjornelas.course.instagram.home.data.HomeDataSourceFactory
 import rjornelas.course.instagram.home.data.HomeRepository
 import rjornelas.course.instagram.login.data.FakeDataSource
+import rjornelas.course.instagram.login.data.FireLoginDataSource
 import rjornelas.course.instagram.login.data.LoginRepository
 import rjornelas.course.instagram.post.data.PostLocalDataSource
 import rjornelas.course.instagram.post.data.PostRepository
@@ -21,15 +22,16 @@ import rjornelas.course.instagram.register.data.RegisterRepository
 import rjornelas.course.instagram.search.data.SearchFakeRemoteDataSource
 import rjornelas.course.instagram.search.data.SearchRepository
 import rjornelas.course.instagram.splash.data.FakeLocalSplashDataSource
+import rjornelas.course.instagram.splash.data.FireSplashDataSource
 import rjornelas.course.instagram.splash.data.SplashRepository
 
 object DependencyInjector {
     fun loginRepository(): LoginRepository {
-        return LoginRepository(FakeDataSource())
+        return LoginRepository(FireLoginDataSource())
     }
 
     fun splashRepository(): SplashRepository {
-        return SplashRepository(FakeLocalSplashDataSource())
+        return SplashRepository(FireSplashDataSource())
     }
 
     fun registerEmailRepository(): RegisterRepository {

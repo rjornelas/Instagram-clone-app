@@ -4,7 +4,7 @@ import rjornelas.course.instagram.common.model.UserAuth
 
 interface LoginCallBack {
 
-    fun onSuccess(userAuth: UserAuth)
+    fun onSuccess()
 
     fun onFailure(message: String)
 

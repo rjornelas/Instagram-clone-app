@@ -16,7 +16,7 @@ class FakeDataSource : LoginDataSource {
             }else if(userAuth.password != password){
                 callback.onFailure("Incorrect password")
             }else{
-                callback.onSuccess(userAuth)
+                callback.onSuccess()
             }
             callback.onComplete()
         }, 2000)

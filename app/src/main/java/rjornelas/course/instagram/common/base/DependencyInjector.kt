@@ -19,6 +19,7 @@ import rjornelas.course.instagram.profile.data.ProfileRepository
 import rjornelas.course.instagram.register.data.FakeRegisterSource
 import rjornelas.course.instagram.register.data.FireRegisterSource
 import rjornelas.course.instagram.register.data.RegisterRepository
+import rjornelas.course.instagram.search.data.FireSearchDataSource
 import rjornelas.course.instagram.search.data.SearchFakeRemoteDataSource
 import rjornelas.course.instagram.search.data.SearchRepository
 import rjornelas.course.instagram.splash.data.FakeLocalSplashDataSource
@@ -39,7 +40,7 @@ object DependencyInjector {
     }
 
     fun searchRepository(): SearchRepository {
-        return SearchRepository(SearchFakeRemoteDataSource())
+        return SearchRepository(FireSearchDataSource())
     }
 
     fun profileRepository(): ProfileRepository {

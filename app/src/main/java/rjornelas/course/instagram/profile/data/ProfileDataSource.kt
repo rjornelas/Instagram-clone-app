@@ -17,7 +17,7 @@ interface ProfileDataSource {
         throw UnsupportedOperationException()
     }
 
-    fun putUser(response: Pair<User, Boolean?>) {
+    fun putUser(response: Pair<User, Boolean?>?) {
         throw UnsupportedOperationException()
     }
 

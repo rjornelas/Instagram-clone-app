@@ -79,5 +79,6 @@ class ProfileRepository(
     fun clearCache() {
         val localDataSource = dataSourceFactory.createLocalDataSource()
         localDataSource.putPosts(null)
+        localDataSource.putUser(null)
     }
 }

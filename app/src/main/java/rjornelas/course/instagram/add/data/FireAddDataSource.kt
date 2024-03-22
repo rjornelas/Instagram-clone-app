@@ -29,7 +29,7 @@ class FireAddDataSource : AddDataSource {
 
                         FirebaseFirestore.getInstance()
                             .collection("/users")
-                            .document()
+                            .document(userUUID)
                             .get()
                             .addOnSuccessListener { resMe ->
                                 val me = resMe.toObject(User::class.java)
@@ -62,22 +62,21 @@ class FireAddDataSource : AddDataSource {
                                                 FirebaseFirestore.getInstance()
                                                     .collection("/followers")
                                                     .document(userUUID)
-                                                    .collection("followers")
                                                     .get()
                                                     .addOnSuccessListener { resFollowers ->
-                                                        val documents = resFollowers.documents
 
-                                                        for (document in documents){
-                                                            val followerUUID = document.toObject(String::class.java) ?: throw RuntimeException("Falha ao converter seguidor")
+                                                        if(resFollowers.exists()){
+                                                            val list = resFollowers.get("followers") as List<String>
 
-                                                            FirebaseFirestore.getInstance()
-                                                                .collection("/feeds")
-                                                                .document(followerUUID)
-                                                                .collection("posts")
-                                                                .document(postRef.path)
-                                                                .set(post)
+                                                            for (followerUUID in list){
+                                                                FirebaseFirestore.getInstance()
+                                                                    .collection("/feeds")
+                                                                    .document(followerUUID)
+                                                                    .collection("posts")
+                                                                    .document(postRef.id)
+                                                                    .set(post)
+                                                            }
                                                         }
-
                                                         callback.onSuccess(true)
                                                     }
                                                     .addOnFailureListener { exception ->

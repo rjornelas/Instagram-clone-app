@@ -11,8 +11,8 @@ class HomeDataSourceFactory(
         return HomeLocalDataSource(feedCache)
     }
 
-    fun createFromUser(): HomeDataSource {
-        return HomeLocalDataSource(feedCache)
+    fun createRemoteDataSource(): HomeDataSource{
+        return FireHomeDataSource()
     }
 
     fun createFromPosts(): HomeDataSource {

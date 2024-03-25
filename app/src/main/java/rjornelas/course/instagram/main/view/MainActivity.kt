@@ -1,5 +1,6 @@
 package rjornelas.course.instagram.main.view
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,12 +15,14 @@ import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.replaceFragment
 import rjornelas.course.instagram.databinding.ActivityMainBinding
 import rjornelas.course.instagram.home.view.HomeFragment
+import rjornelas.course.instagram.main.LogoutListener
 import rjornelas.course.instagram.post.view.AddFragment
 import rjornelas.course.instagram.profile.view.ProfileFragment
 import rjornelas.course.instagram.search.view.SearchFragment
+import rjornelas.course.instagram.view.SplashActivity
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
-    AddFragment.AddListener, SearchFragment.SearchListener {
+    AddFragment.AddListener, SearchFragment.SearchListener, LogoutListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -133,6 +136,20 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             addToBackStack(null)
             commit()
         }
+    }
+
+    override fun logout() {
+        if (supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null) {
+            profileFragment.presenter.clear()
+
+            homeFragment.presenter.clear()
+            homeFragment.presenter.logout()
+        }
+
+        val intent = Intent(baseContext, SplashActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
 }

@@ -1,5 +1,6 @@
 package rjornelas.course.instagram.profile.view
 
+import android.content.Context
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import rjornelas.course.instagram.common.model.Post
 import rjornelas.course.instagram.common.model.User
 import rjornelas.course.instagram.common.model.UserAuth
 import rjornelas.course.instagram.databinding.FragmentProfileBinding
+import rjornelas.course.instagram.main.LogoutListener
 import rjornelas.course.instagram.profile.Profile
 import rjornelas.course.instagram.profile.presentation.ProfilePresenter
 
@@ -24,6 +26,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
 
     private val adapter = PostAdapter()
     private var uuid: String? = null
+
+    private var logoutListener: LogoutListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is LogoutListener) {
+            logoutListener = context
+        }
+    }
     override fun showProgress(enabled: Boolean) {
         binding?.profileProgress?.visibility = if(enabled) View.VISIBLE else View.GONE
     }
@@ -112,6 +123,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, Profile.Presenter>(
             }
         }
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_logout -> {
+                logoutListener?.logout()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object{

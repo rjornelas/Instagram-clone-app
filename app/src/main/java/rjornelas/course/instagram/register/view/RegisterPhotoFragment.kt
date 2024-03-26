@@ -1,6 +1,8 @@
 package rjornelas.course.instagram.register.view
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
@@ -11,6 +13,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import rjornelas.course.instagram.R
@@ -18,6 +22,7 @@ import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.view.CropperImageFragment
 import rjornelas.course.instagram.common.view.CustomerDialog
 import rjornelas.course.instagram.databinding.FragmentRegisterPhotoBinding
+import rjornelas.course.instagram.post.view.AddFragment
 import rjornelas.course.instagram.register.RegisterPhoto
 import rjornelas.course.instagram.register.presentation.RegisterPhotoPresenter
 
@@ -88,6 +93,11 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), Regist
         customerDialog.addButton(R.string.photo, R.string.gallery) {
             when (it.id) {
                 R.string.photo -> {
+                    if (allPermissionsGranted()) {
+                        fragmentAttachListener?.goToCameraScreen()
+                    } else {
+                        getPermission.launch(REQUIRED_PERMISSION)
+                    }
                     fragmentAttachListener?.goToCameraScreen()
                 }
 
@@ -122,5 +132,27 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), Regist
 
     override fun onUpdateSuccess() {
         fragmentAttachListener?.goToMainScreen()
+    }
+
+    private fun allPermissionsGranted() =
+        ContextCompat.checkSelfPermission(requireContext(), REQUIRED_PERMISSION[0]) == PackageManager.PERMISSION_GRANTED
+
+
+    private val getPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { granted ->
+            if (allPermissionsGranted()) {
+                fragmentAttachListener?.goToCameraScreen()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.permission_camera_denied,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+    companion object {
+        private val REQUIRED_PERMISSION =
+            arrayOf(Manifest.permission.CAMERA)
     }
 }

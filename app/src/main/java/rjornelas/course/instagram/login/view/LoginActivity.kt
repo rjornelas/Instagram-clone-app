@@ -1,9 +1,15 @@
 package rjornelas.course.instagram.login.view
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import rjornelas.course.instagram.R
 import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.util.TxtWatcher
 import rjornelas.course.instagram.databinding.ActivityLoginBinding
@@ -28,6 +34,15 @@ class LoginActivity : AppCompatActivity(), Login.View {
         presenter = LoginPresenter(this, DependencyInjector.loginRepository())
 
         with(binding) {
+            when(resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)){
+                Configuration.UI_MODE_NIGHT_YES->{
+                    imgLoginLogo.imageTintList = ColorStateList.valueOf(Color.WHITE)
+                }
+                Configuration.UI_MODE_NIGHT_NO->{
+                }
+            }
+
+
             edtRegisterEmail.addTextChangedListener(watcher)
             edtRegisterPassword.addTextChangedListener(watcher)
 

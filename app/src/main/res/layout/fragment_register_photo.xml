@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?colorOnPrimary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,14 +34,14 @@
                 style="@style/Theme.Instagram.TextViewBase.Form"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/photo_register_title"
-                android:textColor="@color/black"
+                android:textColor="?colorPrimary"
                 android:textSize="24sp" />
 
             <TextView
                 style="@style/Theme.Instagram.TextViewBase.Form"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/photo_register_subtitle"
-                android:textColor="@color/black" />
+                android:textColor="?colorPrimary" />
 
             <rjornelas.course.instagram.common.view.LoadingButton
                 android:id="@+id/btn_register_next"
@@ -76,12 +76,12 @@
         android:layout_width="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:background="@color/white"
+        android:background="?colorOnPrimary"
         android:padding="24dp"
         android:text="@string/already_has_account"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textColor="@color/black"
+        android:textColor="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

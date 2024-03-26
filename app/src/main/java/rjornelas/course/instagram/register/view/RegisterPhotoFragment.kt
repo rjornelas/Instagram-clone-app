@@ -1,6 +1,9 @@
 package rjornelas.course.instagram.register.view
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
@@ -15,7 +18,6 @@ import rjornelas.course.instagram.common.base.DependencyInjector
 import rjornelas.course.instagram.common.view.CropperImageFragment
 import rjornelas.course.instagram.common.view.CustomerDialog
 import rjornelas.course.instagram.databinding.FragmentRegisterPhotoBinding
-import rjornelas.course.instagram.databinding.FragmentRegisterWelcomeBinding
 import rjornelas.course.instagram.register.RegisterPhoto
 import rjornelas.course.instagram.register.presentation.RegisterPhotoPresenter
 
@@ -28,14 +30,14 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), Regist
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener("cropKey"){
-                _, bundle -> val uri = bundle.getParcelable<Uri>(CropperImageFragment.KEY_URI)
+        setFragmentResultListener("cropKey") { _, bundle ->
+            val uri = bundle.getParcelable<Uri>(CropperImageFragment.KEY_URI)
             onCropImageResult(uri)
         }
     }
 
     private fun onCropImageResult(uri: Uri?) {
-        if(uri != null){
+        if (uri != null) {
             val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val source = ImageDecoder.createSource(requireContext().contentResolver, uri)
                 ImageDecoder.decodeBitmap(source)
@@ -57,13 +59,23 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), Regist
         presenter = RegisterPhotoPresenter(this, repository)
 
         binding?.let { fragmentRegisterPhotoBinding ->
-            with(fragmentRegisterPhotoBinding){
-                btnRegisterSkip.setOnClickListener{
+            with(fragmentRegisterPhotoBinding) {
+
+                when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        imgProfile.imageTintList = ColorStateList.valueOf(Color.WHITE)
+                    }
+
+                    Configuration.UI_MODE_NIGHT_NO -> {
+                    }
+                }
+
+                btnRegisterSkip.setOnClickListener {
                     fragmentAttachListener?.goToMainScreen()
                 }
 
                 btnRegisterNext.isEnabled = true
-                btnRegisterNext.setOnClickListener{
+                btnRegisterNext.setOnClickListener {
                     openDialog()
                 }
             }
@@ -89,7 +101,7 @@ class RegisterPhotoFragment : Fragment(R.layout.fragment_register_photo), Regist
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if(context is FragmentAttachListener){
+        if (context is FragmentAttachListener) {
             fragmentAttachListener = context
         }
     }

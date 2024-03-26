@@ -22,7 +22,8 @@ import rjornelas.course.instagram.search.view.SearchFragment
 import rjornelas.course.instagram.view.SplashActivity
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
-    AddFragment.AddListener, SearchFragment.SearchListener, LogoutListener {
+    AddFragment.AddListener, SearchFragment.SearchListener, LogoutListener,
+    ProfileFragment.FollowListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -150,6 +151,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
+    override fun followUpdated() {
+        homeFragment.presenter.clear()
+        if (supportFragmentManager.findFragmentByTag(profileFragment.javaClass.simpleName) != null) {
+            profileFragment.presenter.clear()
+        }
     }
 
 }
